@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const features = [
+  { title: "Suivi automatique", text: "Pages vues, clics, scroll et mouvements captés sans configuration." },
+  { title: "Heatmaps", text: "Visualisez où les visiteurs cliquent et bougent la souris." },
+  { title: "Formulaires", text: "Mesurez les soumissions de formulaire comme conversions." },
+  { title: "Rétention", text: "Suivez la part de visiteurs qui reviennent." },
+  { title: "Tableau de bord", text: "Composez vos widgets par glisser-déposer." },
+  { title: "Léger", text: "Un SDK minimal chargé en une ligne." },
+];
+---
+
+<Layout title="Produit">
+  <section>
+    <div class="container">
+      <h1>Le produit</h1>
+      <p class="lead" style="margin-left:0">
+        Une page riche en éléments cliquables pour exercer le tracking.
+      </p>
+
+      <div class="grid">
+        {
+          features.map((feature) => (
+            <article class="card">
+              <h3>{feature.title}</h3>
+              <p>{feature.text}</p>
+              <button class="btn btn-ghost" type="button">
+                En savoir plus
+              </button>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="btn-row" style="justify-content:flex-start;margin-top:32px">
+        <a class="btn btn-primary" href="/tarifs/">Voir les tarifs</a>
+        <a class="btn btn-ghost" href="/contact/">Nous contacter</a>
+      </div>
+    </div>
+  </section>
+</Layout>

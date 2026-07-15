@@ -1,0 +1,56 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Contact">
+  <section>
+    <div class="container">
+      <h1>Contact</h1>
+      <p class="lead" style="margin-left:0">
+        Envoyez ce formulaire : le SDK enregistre un event
+        <code>form_submit</code> (son identité, jamais vos saisies).
+      </p>
+
+      <form class="form" id="contact-form" name="contact" method="post" action="#">
+        <div class="field">
+          <label for="name">Nom</label>
+          <input id="name" name="name" type="text" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required />
+        </div>
+        <div class="field">
+          <label for="subject">Sujet</label>
+          <select id="subject" name="subject">
+            <option>Question générale</option>
+            <option>Démonstration</option>
+            <option>Support</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Envoyer</button>
+      </form>
+
+      <p class="success" id="form-success" hidden>
+        Merci, votre message a été envoyé (simulation) — l'event a été capté.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // On empêche la navigation pour rester sur la page ; le SDK écoute le
+    // submit en phase de capture, donc l'event est enregistré avant ce handler.
+    const form = document.getElementById("contact-form") as HTMLFormElement | null;
+    const success = document.getElementById("form-success");
+
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      success?.removeAttribute("hidden");
+      form.reset();
+    });
+  </script>
+</Layout>

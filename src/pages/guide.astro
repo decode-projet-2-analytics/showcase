@@ -1,0 +1,39 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+// Page volontairement longue pour tester la profondeur de scroll.
+const sections = Array.from({ length: 10 }, (_, index) => index + 1);
+
+const paragraph =
+  "Cette section existe pour allonger la page et permettre de mesurer jusqu'où les visiteurs font défiler. Faites défiler jusqu'en bas, laissez le SDK envoyer ses données, puis regardez le widget de profondeur de scroll dans le tableau de bord. Plus vous descendez, plus la profondeur enregistrée est grande.";
+---
+
+<Layout title="Guide">
+  <section>
+    <div class="container">
+      <h1>Guide (page longue)</h1>
+      <p class="lead" style="margin-left:0">
+        Faites défiler : chaque section vous rapproche de 100 % de profondeur.
+      </p>
+
+      {
+        sections.map((n) => (
+          <div class="guide-section">
+            <h2 id={`section-${n}`}>Section {n} sur {sections.length}</h2>
+            <p>{paragraph}</p>
+            <p>
+              <a href={`#section-${Math.min(n + 1, sections.length)}`}>
+                Aller à la section suivante
+              </a>
+            </p>
+          </div>
+        ))
+      }
+
+      <div class="btn-row" style="justify-content:flex-start;margin-top:24px">
+        <a class="btn btn-primary" href="#top">Remonter en haut</a>
+        <a class="btn btn-ghost" href="/contact/">Passer au contact</a>
+      </div>
+    </div>
+  </section>
+</Layout>

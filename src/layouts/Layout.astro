@@ -1,0 +1,79 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = "Site vitrine statique pour tester le SDK d'analytics." } =
+  Astro.props;
+
+const pageTitle = title ? `${title} — Site vitrine SDK` : "Site vitrine SDK";
+const path = Astro.url.pathname;
+
+const links = [
+  { href: "/", label: "Accueil" },
+  { href: "/produit/", label: "Produit" },
+  { href: "/tarifs/", label: "Tarifs" },
+  { href: "/guide/", label: "Guide" },
+  { href: "/contact/", label: "Contact" },
+];
+
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="/">Site vitrine SDK</a>
+        <nav class="nav-links" aria-label="Navigation principale">
+          {
+            links.map((link) => (
+              <a
+                href={link.href}
+                aria-current={isActive(link.href) ? "page" : undefined}
+              >
+                {link.label}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        Site vitrine SDK — page de démonstration pour le suivi analytics.
+      </div>
+    </footer>
+
+    <script>
+      import { init } from "@analytics/sdk";
+
+      const endpoint = import.meta.env.PUBLIC_SDK_ENDPOINT;
+      const appId = import.meta.env.PUBLIC_SDK_APP_ID;
+
+      if (endpoint && appId) {
+        init({ endpoint, appId });
+      } else {
+        console.warn(
+          "[showcase] PUBLIC_SDK_ENDPOINT / PUBLIC_SDK_APP_ID manquants — SDK non initialisé. Copiez .env.example en .env et renseignez vos valeurs.",
+        );
+      }
+    </script>
+  </body>
+</html>

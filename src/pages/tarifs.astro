@@ -1,0 +1,63 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const plans = [
+  {
+    name: "Starter",
+    price: "0€",
+    period: "/ mois",
+    features: ["1 site", "Events de base", "7 jours d'historique"],
+    featured: false,
+  },
+  {
+    name: "Pro",
+    price: "29€",
+    period: "/ mois",
+    features: ["10 sites", "Heatmaps + rétention", "12 mois d'historique"],
+    featured: true,
+  },
+  {
+    name: "Entreprise",
+    price: "Sur devis",
+    period: "",
+    features: ["Sites illimités", "Support dédié", "Historique illimité"],
+    featured: false,
+  },
+];
+---
+
+<Layout title="Tarifs">
+  <section>
+    <div class="container">
+      <h1>Tarifs</h1>
+      <p class="lead" style="margin-left:0">
+        Trois offres fictives, avec un bouton par carte pour tester les clics.
+      </p>
+
+      <div class="grid">
+        {
+          plans.map((plan) => (
+            <article class={plan.featured ? "card featured" : "card"}>
+              <h3>{plan.name}</h3>
+              <div class="price">
+                {plan.price}
+                {plan.period && <span>{plan.period}</span>}
+              </div>
+              <ul class="muted" style="padding-left:18px;margin:0 0 18px">
+                {plan.features.map((feature) => (
+                  <li>{feature}</li>
+                ))}
+              </ul>
+              <button
+                class={plan.featured ? "btn btn-primary" : "btn btn-ghost"}
+                type="button"
+              >
+                Choisir {plan.name}
+              </button>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Layout>

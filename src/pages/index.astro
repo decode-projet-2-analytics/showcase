@@ -1,0 +1,47 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Accueil">
+  <section class="hero">
+    <div class="container">
+      <h1>Un site pour tester le suivi analytics</h1>
+      <p class="lead">
+        Ce site vitrine statique existe uniquement pour générer des events
+        (pages vues, clics, scroll, formulaires) et vérifier le SDK d'analytics.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/produit/">Découvrir le produit</a>
+        <a class="btn btn-ghost" href="/tarifs/">Voir les tarifs</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>Ce que vous pouvez déclencher ici</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Navigation</h3>
+          <p>Chaque lien du menu ouvre une vraie page → un pageview.</p>
+          <a class="btn btn-ghost" href="/guide/">Ouvrir le guide</a>
+        </article>
+        <article class="card">
+          <h3>Clics</h3>
+          <p>Boutons, cartes et liens partout pour nourrir la heatmap de clics.</p>
+          <button class="btn btn-ghost" type="button">Cliquez-moi</button>
+        </article>
+        <article class="card">
+          <h3>Scroll</h3>
+          <p>La page Guide est longue pour tester la profondeur de scroll.</p>
+          <a class="btn btn-ghost" href="/guide/">Page longue</a>
+        </article>
+        <article class="card">
+          <h3>Formulaire</h3>
+          <p>La page Contact envoie un event de soumission de formulaire.</p>
+          <a class="btn btn-ghost" href="/contact/">Aller au formulaire</a>
+        </article>
+      </div>
+    </div>
+  </section>
+</Layout>
