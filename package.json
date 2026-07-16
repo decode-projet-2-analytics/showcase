@@ -9,7 +9,7 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@analytics/sdk": "file:../SDK-frontend",
+    "@decode-analytics/sdk": "^0.1.0",
     "astro": "^5.0.0"
   }
 }
