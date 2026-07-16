@@ -13,6 +13,9 @@ import Layout from "../layouts/Layout.astro";
       <div class="btn-row">
         <a class="btn btn-primary" href="/produit/">Découvrir le produit</a>
         <a class="btn btn-ghost" href="/tarifs/">Voir les tarifs</a>
+        <button class="btn btn-primary" type="button" id="test-event-btn">
+          Envoyer un event de test
+        </button>
       </div>
     </div>
   </section>
@@ -44,4 +47,28 @@ import Layout from "../layouts/Layout.astro";
       </div>
     </div>
   </section>
+
+  <script>
+    import { track } from "@decode-analytics/sdk";
+
+    const colors = ["rouge", "vert", "bleu", "jaune", "violet"];
+    const plans = ["free", "starter", "pro", "enterprise"];
+    const pick = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
+
+    document
+      .getElementById("test-event-btn")
+      ?.addEventListener("click", () => {
+        const metadata = {
+          randomId: Math.random().toString(36).slice(2, 10),
+          value: Math.floor(Math.random() * 1000),
+          color: pick(colors),
+          plan: pick(plans),
+          isPremium: Math.random() > 0.5,
+          triggeredAt: new Date().toISOString(),
+        };
+
+        track("event_de_test", { metadata });
+        console.log("[showcase] event_de_test envoyé", metadata);
+      });
+  </script>
 </Layout>
