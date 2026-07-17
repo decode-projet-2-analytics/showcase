@@ -1,4 +1,8 @@
 import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
 
-// Site vitrine 100% statique servant uniquement à tester le SDK d'analytics.
-export default defineConfig({});
+// Le rendu serveur garde APP_SECRET hors du JavaScript envoyé au navigateur.
+export default defineConfig({
+  output: 'server',
+  adapter: node({ mode: 'standalone' }),
+});

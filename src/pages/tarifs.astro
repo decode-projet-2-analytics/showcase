@@ -51,6 +51,7 @@ const plans = [
               <button
                 class={plan.featured ? "btn btn-primary" : "btn btn-ghost"}
                 type="button"
+                data-purchase-plan={plan.name}
               >
                 Choisir {plan.name}
               </button>
@@ -58,6 +59,54 @@ const plans = [
           ))
         }
       </div>
+
+      <p id="purchase-status" class="purchase-status" role="status" aria-live="polite"></p>
     </div>
   </section>
+
+  <script>
+    const SESSION_KEY = "showcase-server-session-id";
+    const status = document.querySelector<HTMLElement>("#purchase-status");
+    const buttons = document.querySelectorAll<HTMLButtonElement>("[data-purchase-plan]");
+
+    function getSessionId(): string {
+      const existing = sessionStorage.getItem(SESSION_KEY);
+      if (existing) return existing;
+
+      const created = crypto.randomUUID();
+      sessionStorage.setItem(SESSION_KEY, created);
+      return created;
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", async () => {
+        const plan = button.dataset.purchasePlan;
+        if (!plan || !status) return;
+
+        button.disabled = true;
+        status.dataset.state = "loading";
+        status.textContent = `Envoi de l'achat fictif ${plan}…`;
+
+        try {
+          const response = await fetch("/api/demo-purchase", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ plan, sessionId: getSessionId() }),
+          });
+
+          if (!response.ok) {
+            throw new Error("Purchase rejected");
+          }
+
+          status.dataset.state = "success";
+          status.textContent = `Achat fictif ${plan} enregistré : le TAG remonte dans le dashboard.`;
+        } catch {
+          status.dataset.state = "error";
+          status.textContent = "L'événement serveur n'a pas pu être envoyé. Vérifiez la configuration et le TAG.";
+        } finally {
+          button.disabled = false;
+        }
+      });
+    });
+  </script>
 </Layout>
