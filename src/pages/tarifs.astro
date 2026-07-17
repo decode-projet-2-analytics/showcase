@@ -99,7 +99,6 @@ const plans = [
           }
 
           status.dataset.state = "success";
-          status.textContent = `Achat fictif ${plan} enregistré : le TAG remonte dans le dashboard.`;
         } catch {
           status.dataset.state = "error";
           status.textContent = "L'événement serveur n'a pas pu être envoyé. Vérifiez la configuration et le TAG.";

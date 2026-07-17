@@ -37,7 +37,7 @@ export function createDemoPurchaseEvent(
   const plan = input.plan as PlanName;
 
   return {
-    type: "purchase",
+    type: "event",
     tagSlug,
     sessionId: input.sessionId.trim(),
     payload: {
